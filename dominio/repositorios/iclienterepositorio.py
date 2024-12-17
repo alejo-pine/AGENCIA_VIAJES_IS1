@@ -16,3 +16,7 @@ class IClienteRepository(ABC):
     @abstractmethod
     def listar_clientes(self) -> List[Cliente]:
         pass
+    
+    @abstractmethod
+    def eliminar(self, id: str) -> None:
+        pass

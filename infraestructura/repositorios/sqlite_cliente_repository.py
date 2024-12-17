@@ -61,6 +61,7 @@ class SQLiteClienteRepository(IClienteRepository):
             rows = cursor.fetchall()
             return [
                 Cliente(
+                    id=row["id"],
                     nombre=row["nombre"],
                     direccion=row["direccion"],
                     correo=row["correo"],
@@ -68,3 +69,12 @@ class SQLiteClienteRepository(IClienteRepository):
                 )
                 for row in rows
             ]
+            
+    def eliminar(self, id: str) -> None:
+        """
+        Elimina un cliente por su ID de la base de datos.
+        """
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM clientes WHERE id = ?", (id,))
+            conn.commit()

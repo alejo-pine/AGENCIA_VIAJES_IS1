@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from domain.entidades.cliente import Cliente
+from dominio.entidades.cliente import Cliente
 
 
 class IClienteRepository(ABC):

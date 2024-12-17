@@ -1,8 +1,8 @@
 from datetime import datetime
 from typing import List
 
-from domain.entidades.historialviaje import HistorialViaje
-from domain.entidades.paqueteturistico import PaqueteTuristico
+from dominio.entidades.historialviaje import HistorialViaje
+from dominio.entidades.paqueteturistico import PaqueteTuristico
 
 
 class Cliente:

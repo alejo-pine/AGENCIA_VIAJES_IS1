@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from domain.entidades.proveedor import Proveedor
+from dominio.entidades.proveedor import Proveedor
 
 
 class Vuelo:

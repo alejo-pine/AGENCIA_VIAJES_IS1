@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from domain.entidades.factura import Factura
+from dominio.entidades.factura import Factura
 
 
 class IFacturaRepository(ABC):

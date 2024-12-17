@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from domain.entidades.paqueteturistico import PaqueteTuristico
+from dominio.entidades.paqueteturistico import PaqueteTuristico
 
 
 class IPaqueteRepository(ABC):

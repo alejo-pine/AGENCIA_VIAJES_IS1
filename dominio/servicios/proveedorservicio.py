@@ -1,5 +1,5 @@
-from domain.entidades.contrato import Contrato
-from domain.entidades.proveedor import Proveedor
+from dominio.entidades.contrato import Contrato
+from dominio.entidades.proveedor import Proveedor
 
 
 class ProveedorService:

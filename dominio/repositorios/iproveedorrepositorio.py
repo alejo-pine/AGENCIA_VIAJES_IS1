@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from domain.entidades.proveedor import Proveedor
+from dominio.entidades.proveedor import Proveedor
 
 
 class IProveedorRepository(ABC):

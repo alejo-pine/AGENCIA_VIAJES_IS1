@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from domain.entidades.cliente import Cliente
-from domain.entidades.paqueteturistico import PaqueteTuristico
+from dominio.entidades.cliente import Cliente
+from dominio.entidades.paqueteturistico import PaqueteTuristico
 
 
 class Factura:

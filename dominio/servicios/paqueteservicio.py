@@ -1,4 +1,4 @@
-from domain.entidades.paqueteturistico import PaqueteTuristico
+from dominio.entidades.paqueteturistico import PaqueteTuristico
 
 
 class PaqueteService:

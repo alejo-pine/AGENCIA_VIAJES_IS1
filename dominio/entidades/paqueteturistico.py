@@ -1,8 +1,8 @@
 from typing import List
 
-from domain.entidades.excursion import Excursion
-from domain.entidades.hotel import Hotel
-from domain.entidades.vuelo import Vuelo
+from dominio.entidades.excursion import Excursion
+from dominio.entidades.hotel import Hotel
+from dominio.entidades.vuelo import Vuelo
 
 
 class PaqueteTuristico:

@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List
 
-from domain.entidades.contrato import Contrato
+from dominio.entidades.contrato import Contrato
 
 
 class Proveedor:

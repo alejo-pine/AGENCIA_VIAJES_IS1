@@ -1,7 +1,7 @@
 import sqlite3
 from typing import List
-from domain.entidades.factura import Factura
-from domain.repositorios.ifacturarepositorio import IFacturaRepository
+from dominio.entidades.factura import Factura
+from dominio.repositorios.ifacturarepositorio import IFacturaRepository
 
 
 class SQLiteFacturaRepository(IFacturaRepository):

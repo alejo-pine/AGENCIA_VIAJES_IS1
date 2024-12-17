@@ -1,7 +1,7 @@
 import sqlite3
 from typing import List
-from domain.entidades.paqueteturistico import PaqueteTuristico
-from domain.repositorios.ipaqueterepositorio import IPaqueteRepository
+from dominio.entidades.paqueteturistico import PaqueteTuristico
+from dominio.repositorios.ipaqueterepositorio import IPaqueteRepository
 
 
 class SQLitePaqueteRepository(IPaqueteRepository):

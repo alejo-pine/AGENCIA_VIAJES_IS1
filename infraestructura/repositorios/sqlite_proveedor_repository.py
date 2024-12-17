@@ -1,7 +1,7 @@
 import sqlite3
 from typing import List
-from domain.entidades.proveedor import Proveedor
-from domain.repositorios.iproveedorrepositorio import IProveedorRepository
+from dominio.entidades.proveedor import Proveedor
+from dominio.repositorios.iproveedorrepositorio import IProveedorRepository
 
 
 class SQLiteProveedorRepository(IProveedorRepository):

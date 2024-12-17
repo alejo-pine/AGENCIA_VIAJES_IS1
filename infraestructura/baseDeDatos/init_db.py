@@ -4,7 +4,7 @@ def initialize_database(db_path: str):
     """
     Inicializa la base de datos SQLite usando el esquema definido.
     """
-    with open("infrastructure/baseDeDatos/esquema.sql", "r") as schema_file:
+    with open("infraestructura/baseDeDatos/esquema.sql", "r") as schema_file:
         schema = schema_file.read()
 
     with sqlite3.connect(db_path) as conn:

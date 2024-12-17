@@ -1,7 +1,7 @@
 import sqlite3
 from typing import List
-from domain.entidades.cliente import Cliente
-from domain.repositorios.iclienterepositorio import IClienteRepository
+from dominio.entidades.cliente import Cliente
+from dominio.repositorios.iclienterepositorio import IClienteRepository
 
 
 class SQLiteClienteRepository(IClienteRepository):

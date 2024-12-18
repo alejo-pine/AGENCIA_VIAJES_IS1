@@ -2,11 +2,13 @@ import sqlite3
 from typing import List
 from dominio.entidades.excursion import Excursion
 from dominio.repositorios.iexcursionrepositorio import IExcursionRepository
+from dominio.repositorios.iproveedorrepositorio import IProveedorRepository
 
 
 class SQLiteExcursionRepository(IExcursionRepository):
     def __init__(self, db_path: str):
         self.db_path = db_path
+        self.proveedor_repo = IProveedorRepository(db_path)
 
     def _connect(self):
         conn = sqlite3.connect(self.db_path)
@@ -24,7 +26,7 @@ class SQLiteExcursionRepository(IExcursionRepository):
                 INSERT INTO excursiones (id, lugar, fecha, precio, disponibilidad_plazas, proveedor_id)
                 VALUES (?, ?, ?, ?, ?, ?)
                 """,
-                (excursion.id, excursion.lugar, excursion.fecha, excursion.precio, excursion.disponibilidad_plazas, excursion.proveedor_id),
+                (excursion.id, excursion.lugar, excursion.fecha, excursion.precio, excursion.disponibilidad_plazas, excursion.proveedor.id),
             )
             conn.commit()
 
@@ -37,13 +39,14 @@ class SQLiteExcursionRepository(IExcursionRepository):
             cursor.execute("SELECT * FROM excursiones WHERE id = ?", (id,))
             row = cursor.fetchone()
             if row:
+                proveedor = self.proveedor_repo.buscar_por_id(row["proveedor_id"])
                 return Excursion(
                     id=row["id"],
                     lugar=row["lugar"],
                     fecha=row["fecha"],
                     precio=row["precio"],
                     disponibilidad_plazas=row["disponibilidad_plazas"],
-                    proveedor=row["proveedor_id"]
+                    proveedor=proveedor
                 )
             return None
 
@@ -62,7 +65,7 @@ class SQLiteExcursionRepository(IExcursionRepository):
                     fecha=row["fecha"],
                     precio=row["precio"],
                     disponibilidad_plazas=row["disponibilidad_plazas"],
-                    proveedor=row["proveedor_id"]
+                    proveedor=self.proveedor_repo.buscar_por_id(row["proveedor_id"])
                 )
                 for row in rows
             ]

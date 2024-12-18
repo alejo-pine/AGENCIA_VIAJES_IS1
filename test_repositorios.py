@@ -8,7 +8,6 @@ from datetime import datetime
 def test_cliente_repository():
     print("\n--- Test Cliente Repository ---")
     cliente_repo = RepositoryFactory.get_cliente_repository()
-    
     # Crear y guardar un cliente
     cliente = Cliente(
         id="C1",
@@ -29,12 +28,13 @@ def test_cliente_repository():
     print("Lista de clientes:")
     for c in clientes:
         print(c)
+        
+    #cliente_repo.eliminar("C1")
 
 
 def test_proveedor_repository():
     print("\n--- Test Proveedor Repository ---")
     proveedor_repo = RepositoryFactory.get_proveedor_repository()
-    
     # Crear y guardar un proveedor
     proveedor = Proveedor(
         id="P1",
@@ -53,12 +53,14 @@ def test_proveedor_repository():
     print("Lista de proveedores:")
     for p in proveedores:
         print(p)
+        
+    proveedor_repo.eliminar("P1")
 
 
 def test_paquete_repository():
     print("\n--- Test Paquete Repository ---")
     paquete_repo = RepositoryFactory.get_paquete_repository()
-    
+    paquete_repo.eliminar("PK1")
     # Crear y guardar un paquete turístico
     paquete = PaqueteTuristico(
         id="PK1",
@@ -78,6 +80,8 @@ def test_paquete_repository():
     print("Lista de paquetes:")
     for p in paquetes:
         print(p)
+    
+    paquete_repo.eliminar("PK1")
 
 
 def test_factura_repository():
@@ -109,6 +113,8 @@ def test_factura_repository():
     print("Facturas del cliente Juan Pérez:")
     for f in facturas:
         print(f)
+        
+    factura_repo.eliminar("F1")
 
 
 if __name__ == "__main__":

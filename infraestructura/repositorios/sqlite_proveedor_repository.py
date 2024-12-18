@@ -27,10 +27,10 @@ class SQLiteProveedorRepository(IProveedorRepository):
             cursor = conn.cursor()
             cursor.execute(
                 """
-                INSERT INTO proveedores (nombre, tipo, precio, disponibilidad)
-                VALUES (?, ?, ?, ?)
+                INSERT INTO proveedores (id, nombre, tipo)
+                VALUES (?, ?, ?)
                 """,
-                (proveedor.nombre, proveedor.tipo, proveedor.precio, proveedor.disponibilidad),
+                (proveedor.id, proveedor.nombre, proveedor.tipo),
             )
             conn.commit()
 
@@ -44,11 +44,9 @@ class SQLiteProveedorRepository(IProveedorRepository):
             row = cursor.fetchone()
             if row:
                 return Proveedor(
+                    id=row["id"],
                     nombre=row["nombre"],
                     tipo=row["tipo"],
-                    precio=row["precio"],
-                    disponibilidad=row["disponibilidad"],
-                    contratos=[],  # Implementar si se almacenan contratos asociados
                 )
             return None
 
@@ -62,11 +60,18 @@ class SQLiteProveedorRepository(IProveedorRepository):
             rows = cursor.fetchall()
             return [
                 Proveedor(
+                    id=row["id"],
                     nombre=row["nombre"],
                     tipo=row["tipo"],
-                    precio=row["precio"],
-                    disponibilidad=row["disponibilidad"],
-                    contratos=[],  # Implementar si se almacenan contratos asociados
                 )
                 for row in rows
             ]
+            
+    def eliminar(self, id: str) -> None:
+        """
+        Elimina un proveedor de la base de datos.
+        """
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM proveedores WHERE id = ?", (id,))
+            conn.commit()

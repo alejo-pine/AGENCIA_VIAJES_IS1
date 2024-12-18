@@ -71,3 +71,13 @@ class SQLiteFacturaRepository(IFacturaRepository):
                 )
                 for row in rows
             ]
+
+    def eliminar(self, factura_id: str) -> None:
+        """
+        Elimina una factura de la base de datos.
+        """
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM facturas WHERE id = ?", (factura_id,))
+            conn.commit()
+            

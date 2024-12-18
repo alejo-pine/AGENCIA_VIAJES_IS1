@@ -27,10 +27,10 @@ class SQLiteClienteRepository(IClienteRepository):
             cursor = conn.cursor()
             cursor.execute(
                 """
-                INSERT INTO clientes (nombre, direccion, correo, telefono)
-                VALUES (?, ?, ?, ?)
+                INSERT INTO clientes (id, nombre, direccion, correo, telefono)
+                VALUES (?, ?, ?, ?, ?)
                 """,
-                (cliente.nombre, cliente.direccion, cliente.correo, cliente.telefono),
+                (cliente.id, cliente.nombre, cliente.direccion, cliente.correo, cliente.telefono),
             )
             conn.commit()
 
@@ -44,6 +44,7 @@ class SQLiteClienteRepository(IClienteRepository):
             row = cursor.fetchone()
             if row:
                 return Cliente(
+                    id=row["id"],
                     nombre=row["nombre"],
                     direccion=row["direccion"],
                     correo=row["correo"],

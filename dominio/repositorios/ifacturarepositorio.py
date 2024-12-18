@@ -16,3 +16,7 @@ class IFacturaRepository(ABC):
     @abstractmethod
     def listar_facturas(self) -> List[Factura]:
         pass
+    
+    @abstractmethod
+    def eliminar(self, factura_id: str) -> None:
+        pass

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prueba API Agencia de Viajes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f9;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .results {
+      margin-top: 20px;
+      padding: 10px;
+      background: #e9ecef;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Prueba API Agencia de Viajes</h1>
+  <div class="container">
+    <h2>Consultar Clientes</h2>
+    <button id="getClientes">Obtener Clientes</button>
+    <div class="results" id="clientesResult"></div>
+
+    <h2>Consultar Facturas</h2>
+    <button id="getFacturas">Obtener Facturas</button>
+    <div class="results" id="facturasResult"></div>
+
+    <h2>Consultar Paquetes</h2>
+    <button id="getPaquetes">Obtener Paquetes</button>
+    <div class="results" id="paquetesResult"></div>
+
+    <h2>Consultar Proveedores</h2>
+    <button id="getProveedores">Obtener Proveedores</button>
+    <div class="results" id="proveedoresResult"></div>
+  </div>
+
+  <script>
+    const baseURL = "http://localhost:8000/api/v1";
+
+    async function fetchAndDisplay(endpoint, resultContainerId) {
+      try {
+        const response = await fetch(`${baseURL}/${endpoint}/`);
+        if (!response.ok) throw new Error(`Error: ${response.status}`);
+        const data = await response.json();
+        const container = document.getElementById(resultContainerId);
+        container.innerHTML = `
+          <pre>${JSON.stringify(data, null, 2)}</pre>
+        `;
+      } catch (error) {
+        document.getElementById(resultContainerId).innerText = `Error: ${error.message}`;
+      }
+    }
+
+    document.getElementById("getClientes").addEventListener("click", () => {
+      fetchAndDisplay("clientes", "clientesResult");
+    });
+
+    document.getElementById("getFacturas").addEventListener("click", () => {
+      fetchAndDisplay("facturas", "facturasResult");
+    });
+
+    document.getElementById("getPaquetes").addEventListener("click", () => {
+      fetchAndDisplay("paquetes", "paquetesResult");
+    });
+
+    document.getElementById("getProveedores").addEventListener("click", () => {
+      fetchAndDisplay("proveedores", "proveedoresResult");
+    });
+  </script>
+</body>
+</html>

@@ -26,3 +26,16 @@ def generar_factura(factura_data: dict):
         return {"message": "Factura generada exitosamente"}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+@router.get("/facturas/")
+def obtener_facturas():
+    """
+    Endpoint para obtener la lista de facturas.
+    """
+    try:
+        # Obtiene la lista de facturas usando el servicio de aplicación
+        facturas = factura_service.obtener_facturas()
+        # Mapea cada DTO a JSON para enviar la respuesta
+        return [factura_mapper.dto_a_json(factura) for factura in facturas]
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))

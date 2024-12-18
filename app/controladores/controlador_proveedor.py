@@ -46,3 +46,14 @@ def verificar_renovacion_contratos(proveedor_id: str):
         return {"proveedor_id": proveedor_id, "renovacion_necesaria": renovacion_necesaria}
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+@router.get("/proveedores/")
+def obtener_proveedores():
+    """
+    Endpoint para obtener la lista de proveedores.
+    """
+    try:
+        proveedores = proveedor_service.obtener_proveedores()
+        return [proveedor_mapper.dto_a_json(proveedor) for proveedor in proveedores]
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))

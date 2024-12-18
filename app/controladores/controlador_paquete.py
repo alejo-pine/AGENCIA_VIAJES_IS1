@@ -35,3 +35,15 @@ def calcular_precio(paquete_id: str):
         return {"paquete_id": paquete_id, "precio": precio}
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
+    
+@router.get("/paquetes/")
+def obtener_paquetes():
+    """
+    Endpoint para obtener la lista de paquetes turísticos.
+    """
+    try:
+        paquetes = paquete_service.obtener_paquetes()
+        return [paquete_mapper.dto_a_json(paquete) for paquete in paquetes]
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+

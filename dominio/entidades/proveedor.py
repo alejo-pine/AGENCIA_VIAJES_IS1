@@ -11,7 +11,7 @@ class Proveedor:
         self.tipo = tipo
         self.contratos: List[Contrato] = []
 
-    def registrar_contrato(self, contrato: 'Contrato') -> None:
+    def registrar_contrato(self, contrato: Contrato) -> None:
         self.contratos.append(contrato)
 
     def alerta_renovacion_contrato(self) -> bool:

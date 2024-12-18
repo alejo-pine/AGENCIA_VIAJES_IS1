@@ -29,7 +29,7 @@ def test_cliente_repository():
     for c in clientes:
         print(c)
         
-    #cliente_repo.eliminar("C1")
+    cliente_repo.eliminar("C1")
 
 
 def test_proveedor_repository():
@@ -60,7 +60,6 @@ def test_proveedor_repository():
 def test_paquete_repository():
     print("\n--- Test Paquete Repository ---")
     paquete_repo = RepositoryFactory.get_paquete_repository()
-    paquete_repo.eliminar("PK1")
     # Crear y guardar un paquete turístico
     paquete = PaqueteTuristico(
         id="PK1",
@@ -102,8 +101,8 @@ def test_factura_repository():
         numero_factura="FAC-001",
         fecha=datetime.now(),
         metodo_de_pago="Tarjeta de crédito",
-        cliente=cliente,
-        paquete=paquete
+        cliente=cliente.id,
+        paquete=paquete.id,
     )
     factura_repo.guardar(factura)
     print("Factura guardada exitosamente.")

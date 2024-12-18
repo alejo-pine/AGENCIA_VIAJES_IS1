@@ -14,6 +14,10 @@ class IContratoRepository(ABC):
     @abstractmethod
     def listar_contratos(self) -> List[Contrato]:
         pass
+    
+    @abstractmethod
+    def listar_contratos_por_proveedor(self, proveedor_id: str) -> List[Contrato]:
+        pass
 
     @abstractmethod
     def eliminar(self, id: str) -> None:

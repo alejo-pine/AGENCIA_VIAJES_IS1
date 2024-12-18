@@ -2,6 +2,7 @@ import sqlite3
 from typing import List
 from dominio.entidades.proveedor import Proveedor
 from dominio.repositorios.iproveedorrepositorio import IProveedorRepository
+from infraestructura.repositorios.sqlite_contrato_repository import SQLiteContratoRepository
 
 
 class SQLiteProveedorRepository(IProveedorRepository):
@@ -10,6 +11,7 @@ class SQLiteProveedorRepository(IProveedorRepository):
         Constructor que inicializa la conexión a la base de datos.
         """
         self.db_path = db_path
+        self.contrato_repo = SQLiteContratoRepository(db_path)
 
     def _connect(self):
         """
@@ -43,13 +45,16 @@ class SQLiteProveedorRepository(IProveedorRepository):
             cursor.execute("SELECT * FROM proveedores WHERE id = ?", (id,))
             row = cursor.fetchone()
             if row:
-                return Proveedor(
+                proveedor = Proveedor(
                     id=row["id"],
                     nombre=row["nombre"],
-                    tipo=row["tipo"],
+                    tipo=row["tipo"]
                 )
+                # Cargar los contratos asociados
+                proveedor.contratos = self.contrato_repo.listar_contratos_por_proveedor(proveedor.id)
+                return proveedor
             return None
-
+        
     def listar_proveedores(self) -> List[Proveedor]:
         """
         Lista todos los proveedores almacenados en la base de datos.
@@ -58,14 +63,17 @@ class SQLiteProveedorRepository(IProveedorRepository):
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM proveedores")
             rows = cursor.fetchall()
-            return [
-                Proveedor(
+            proveedores = []
+            for row in rows:
+                proveedor = Proveedor(
                     id=row["id"],
                     nombre=row["nombre"],
-                    tipo=row["tipo"],
+                    tipo=row["tipo"]
                 )
-                for row in rows
-            ]
+                # Cargar los contratos asociados
+                proveedor.contratos = self.contrato_repo.listar_contratos_por_proveedor(proveedor.id)
+                proveedores.append(proveedor)
+            return proveedores
             
     def eliminar(self, id: str) -> None:
         """

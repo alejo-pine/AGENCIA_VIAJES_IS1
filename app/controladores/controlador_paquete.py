@@ -1,13 +1,15 @@
+import os
 from fastapi import APIRouter, HTTPException
-from app.mapeadores.mapeador_paquete import PaqueteMapper
+from ..mapeadores.mapeador_paquete import PaqueteMapper
 from aplicacion.servicios.paqueteaplicacionservicio import PaqueteApplicationService
 from infraestructura.repositorios.sqlite_paquete_repository import SQLitePaqueteRepository
+db_path = os.path.join("database.db")
 
 # Crear el router para Paquetes
 router = APIRouter()
 
 # Inicializar el servicio con el repositorio
-paquete_service = PaqueteApplicationService(SQLitePaqueteRepository())
+paquete_service = PaqueteApplicationService(SQLitePaqueteRepository(db_path))
 paquete_mapper = PaqueteMapper()
 
 @router.post("/paquetes/")

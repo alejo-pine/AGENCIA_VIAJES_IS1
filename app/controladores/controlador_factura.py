@@ -1,18 +1,20 @@
+import os
 from fastapi import APIRouter, HTTPException
-from app.mapeadores.mapeador_factura import FacturaMapper
+from ..mapeadores.mapeador_factura import FacturaMapper
 from aplicacion.servicios.facturaaplicacionservicio import FacturaApplicationService
 from infraestructura.repositorios.sqlite_factura_repository import SQLiteFacturaRepository
-from infraestructura.repositorios.sqlite_cliente_repository import SQLiteClientRepository
+from infraestructura.repositorios.sqlite_cliente_repository import SQLiteClienteRepository
 from infraestructura.repositorios.sqlite_paquete_repository import SQLitePaqueteRepository
+db_path = os.path.join("database.db")
 
 # Crear el router para Factura
 router = APIRouter()
 
 # Inicializar servicio con los repositorios necesarios
 factura_service = FacturaApplicationService(
-    SQLiteFacturaRepository(),
-    SQLiteClientRepository(),
-    SQLitePaqueteRepository()
+    SQLiteFacturaRepository(db_path),
+    SQLiteClienteRepository(db_path),
+    SQLitePaqueteRepository(db_path)
 )
 factura_mapper = FacturaMapper()
 

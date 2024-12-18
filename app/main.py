@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from controladores.controlador_cliente import router as cliente_router
-from controladores.controlador_factura import router as factura_router
-from controladores.controlador_paquete import router as paquete_router
-from controladores.controlador_proveedor import router as proveedor_router
+from .controladores.controlador_cliente import router as cliente_router
+from .controladores.controlador_factura import router as factura_router
+from .controladores.controlador_paquete import router as paquete_router
+from .controladores.controlador_proveedor import router as proveedor_router
 
 app = FastAPI()
 

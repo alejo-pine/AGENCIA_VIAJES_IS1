@@ -1,1 +1,1 @@
-# __init__.py vacío
+# /__init__.py vacío

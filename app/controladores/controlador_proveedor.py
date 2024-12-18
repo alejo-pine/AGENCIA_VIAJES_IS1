@@ -1,13 +1,14 @@
+import os
 from fastapi import APIRouter, HTTPException
-from app.mapeadores.mapeador_proveedor import ProveedorMapper
+from ..mapeadores.mapeador_proveedor import ProveedorMapper
 from aplicacion.servicios.proveedoraplicacionservicio import ProveedorApplicationService
 from infraestructura.repositorios.sqlite_proveedor_repository import SQLiteProveedorRepository
-
+db_path = os.path.join("database.db")
 # Crear el router para Proveedores
 router = APIRouter()
 
 # Inicializar el servicio con el repositorio
-proveedor_service = ProveedorApplicationService(SQLiteProveedorRepository())
+proveedor_service = ProveedorApplicationService(SQLiteProveedorRepository(db_path))
 proveedor_mapper = ProveedorMapper()
 
 @router.post("/proveedores/")

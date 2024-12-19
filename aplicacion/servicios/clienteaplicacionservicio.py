@@ -44,3 +44,28 @@ class ClienteApplicationService:
                 telefono=cliente.telefono
             ) for cliente in clientes
         ]
+        
+    def obtener_cliente_por_id(self, cliente_id: str) -> ClienteDTO:
+        """
+        Caso de uso: Obtener un cliente por su ID.
+        Retorna un ClienteDTO si el cliente existe.
+        """
+        cliente = self.cliente_repository.buscar_por_id(cliente_id)
+        if not cliente:
+            raise ValueError(f"Cliente con ID {cliente_id} no encontrado.")
+        return ClienteDTO(
+            id=cliente.id,
+            nombre=cliente.nombre,
+            direccion=cliente.direccion,
+            correo=cliente.correo,
+            telefono=cliente.telefono
+        )
+        
+    def eliminar_cliente(self, cliente_id: str):
+        """
+        Caso de uso: Eliminar un cliente por su ID.
+        """
+        cliente = self.cliente_repository.buscar_por_id(cliente_id)
+        if not cliente:
+            raise ValueError(f"Cliente con ID {cliente_id} no encontrado.")
+        self.cliente_repository.eliminar(cliente_id)

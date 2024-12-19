@@ -14,9 +14,5 @@ class Proveedor:
     def registrar_contrato(self, contrato: Contrato) -> None:
         self.contratos.append(contrato)
 
-    def alerta_renovacion_contrato(self) -> bool:
-        hoy = datetime.now()
-        return any((contrato.fecha_expiracion - hoy).days <= 30 for contrato in self.contratos)
-
     def __repr__(self):
         return f"Proveedor({self.nombre}, Tipo: {self.tipo})"

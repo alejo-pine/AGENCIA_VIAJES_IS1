@@ -1,4 +1,5 @@
 from aplicacion.dtos.proveedordto import ProveedorDTO
+from aplicacion.dtos.contratodto import ContratoDTO
 from dominio.entidades.contrato import Contrato
 from dominio.entidades.proveedor import Proveedor
 from dominio.repositorios.iproveedorrepositorio import IProveedorRepository
@@ -24,26 +25,71 @@ class ProveedorApplicationService:
             nombre=proveedor_dto.nombre,
             tipo=proveedor_dto.tipo
         )
+        
+        self.proveedor_service.validar_proveedor(proveedor)
         self.proveedor_repository.guardar(proveedor)
 
-    def registrar_contrato(self, proveedor_id: str, contrato_data: dict):
+    def registrar_contrato(self, proveedor_id: str, contrato_dto: ContratoDTO):
         """
         Caso de uso: Registrar un contrato asociado a un proveedor.
-        Recibe un diccionario con los datos del contrato.
+        Recibe un ContratoDTO con los datos del contrato.
         """
         proveedor = self.proveedor_repository.buscar_por_id(proveedor_id)
+        if not proveedor:
+            raise ValueError(f"Proveedor con ID {proveedor_id} no encontrado.")
+
+        # Convertir DTO a una entidad Contrato
         contrato = Contrato(
-            id=contrato_data['id'],
-            fecha_inicio=contrato_data['fecha_inicio'],
-            fecha_expiracion=contrato_data['fecha_expiracion'],
-            condiciones=contrato_data['condiciones']
+            id=contrato_dto.id,
+            fecha_inicio=contrato_dto.fecha_inicio,
+            fecha_expiracion=contrato_dto.fecha_expiracion,
+            condiciones=contrato_dto.condiciones
         )
+
+        # Registrar el contrato usando el servicio de dominio
         self.proveedor_service.registrar_contrato(proveedor, contrato)
+
+        # Persistir el proveedor actualizado
         self.proveedor_repository.guardar(proveedor)
 
-    def verificar_renovacion_contratos(self, proveedor_id: str) -> bool:
+        
+    def listar_proveedores(self) -> list[ProveedorDTO]:
         """
-        Caso de uso: Verificar si algún contrato del proveedor está próximo a vencerse.
+        Caso de uso: Listar todos los proveedores.
+        Retorna una lista de DTOs.
+        """
+        proveedores = self.proveedor_repository.listar_proveedores()
+        return [
+            ProveedorDTO(
+                id=proveedor.id,
+                nombre=proveedor.nombre,
+                tipo=proveedor.tipo
+            ) for proveedor in proveedores
+        ]
+        
+    def buscar_proveedor_por_id(self, proveedor_id: str) -> ProveedorDTO:
+        """
+        Caso de uso: Buscar un proveedor por su ID.
+        Retorna un DTO con los datos del proveedor.
         """
         proveedor = self.proveedor_repository.buscar_por_id(proveedor_id)
-        return self.proveedor_service.verificar_renovacion_contratos(proveedor)
+        if not proveedor:
+            raise ValueError(f"Proveedor con ID {proveedor_id} no encontrado.")
+        
+        return ProveedorDTO(
+            id=proveedor.id,
+            nombre=proveedor.nombre,
+            tipo=proveedor.tipo
+        )
+        
+    def eliminar_proveedor(self, proveedor_id: str):
+        """
+        Caso de uso: Eliminar un proveedor por su ID.
+        """
+        proveedor = self.proveedor_repository.buscar_por_id(proveedor_id)
+        if not proveedor:
+            raise ValueError(f"Proveedor con ID {proveedor_id} no encontrado.")
+        self.proveedor_repository.eliminar(proveedor_id)
+        
+        
+    

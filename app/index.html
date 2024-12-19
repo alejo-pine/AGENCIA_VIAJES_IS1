@@ -58,6 +58,7 @@
 <body>
   <h1>Prueba API Agencia de Viajes</h1>
   <div class="container">
+    
     <h2>Consultar Clientes</h2>
     <button id="getClientes">Obtener Clientes</button>
     <div class="results" id="clientesResult"></div>
@@ -73,6 +74,19 @@
     <h2>Consultar Proveedores</h2>
     <button id="getProveedores">Obtener Proveedores</button>
     <div class="results" id="proveedoresResult"></div>
+
+    <h2>Consultar Excursiones</h2>
+    <button id="getExcursiones">Obtener Excursiones</button>
+    <div class="results" id="excursionesResult"></div>
+
+    <h2>Consultar Hoteles</h2>
+    <button id="getHoteles">Obtener Hoteles</button>
+    <div class="results" id="hotelesResult"></div>
+
+    <h2>Consultar Vuelos</h2>
+    <button id="getVuelos">Obtener Vuelos</button>
+    <div class="results" id="vuelosResult"></div>
+
   </div>
 
   <script>
@@ -106,6 +120,18 @@
 
     document.getElementById("getProveedores").addEventListener("click", () => {
       fetchAndDisplay("proveedores", "proveedoresResult");
+    });
+
+    document.getElementById("getExcursiones").addEventListener("click", () => {
+      fetchAndDisplay("excursiones", "excursionesResult");
+    });
+
+    document.getElementById("getHoteles").addEventListener("click", () => {
+      fetchAndDisplay("hoteles", "hotelesResult");
+    });
+
+    document.getElementById("getVuelos").addEventListener("click", () => {
+      fetchAndDisplay("vuelos", "vuelosResult");
     });
   </script>
 </body>

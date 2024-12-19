@@ -12,4 +12,5 @@ class Contrato:
         return (self.fecha_expiracion - datetime.now()).days <= 30
 
     def __repr__(self):
-        return f"Contrato(Expira: {self.fecha_expiracion})"
+         return (f"Contrato ID: {self.id}, Inicio: {self.fecha_inicio}, "
+                f"Expiración: {self.fecha_expiracion}, Condiciones: {self.condiciones}")

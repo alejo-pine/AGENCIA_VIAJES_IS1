@@ -20,7 +20,6 @@ class ClienteService:
             raise ValueError("El teléfono del cliente no es válido.")
     
     
-    
     @staticmethod
     def registrar_historial_viaje(cliente: Cliente, paquete: PaqueteTuristico) -> None:
         """

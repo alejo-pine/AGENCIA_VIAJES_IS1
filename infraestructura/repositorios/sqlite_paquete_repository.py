@@ -27,10 +27,10 @@ class SQLitePaqueteRepository(IPaqueteRepository):
             cursor = conn.cursor()
             cursor.execute(
                 """
-                INSERT INTO paquetes (nombre, precio, demanda)
-                VALUES (?, ?, ?)
+                INSERT INTO paquetes (id, nombre, precio, demanda)
+                VALUES (?, ?, ?, ?)
                 """,
-                (paquete.nombre, paquete.precio, paquete.demanda),
+                (paquete.id, paquete.nombre, paquete.precio, paquete.demanda),
             )
             conn.commit()
 
@@ -44,12 +44,13 @@ class SQLitePaqueteRepository(IPaqueteRepository):
             row = cursor.fetchone()
             if row:
                 return PaqueteTuristico(
+                    id=row["id"],
                     nombre=row["nombre"],
                     precio=row["precio"],
                     demanda=row["demanda"],
-                    vuelos=[],  # Implementar si se almacenan vuelos
-                    hoteles=[],  # Implementar si se almacenan hoteles
-                    excursiones=[],  # Implementar si se almacenan excursiones
+                    #vuelos=[],  # Implementar si se almacenan vuelos
+                    #hoteles=[],  # Implementar si se almacenan hoteles
+                    #excursiones=[],  # Implementar si se almacenan excursiones
                 )
             return None
 
@@ -63,12 +64,21 @@ class SQLitePaqueteRepository(IPaqueteRepository):
             rows = cursor.fetchall()
             return [
                 PaqueteTuristico(
+                    id=row["id"],
                     nombre=row["nombre"],
-                    precio=row["precio"],
                     demanda=row["demanda"],
-                    vuelos=[],  # Implementar si se almacenan vuelos
-                    hoteles=[],  # Implementar si se almacenan hoteles
-                    excursiones=[],  # Implementar si se almacenan excursiones
+                    #vuelos=[],  # Implementar si se almacenan vuelos
+                    #hoteles=[],  # Implementar si se almacenan hoteles
+                    #excursiones=[],  # Implementar si se almacenan excursiones
                 )
                 for row in rows
             ]
+            
+    def eliminar(self, id: str) -> None:
+        """
+        Elimina un paquete turístico de la base de datos por su ID.
+        """
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM paquetes WHERE id = ?", (id,))
+            conn.commit()

@@ -16,3 +16,7 @@ class IProveedorRepository(ABC):
     @abstractmethod
     def listar_proveedores(self) -> List[Proveedor]:
         pass
+    
+    @abstractmethod
+    def eliminar(self, id: str) -> None:
+        pass

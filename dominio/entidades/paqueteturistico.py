@@ -6,10 +6,10 @@ from dominio.entidades.vuelo import Vuelo
 
 
 class PaqueteTuristico:
-    def __init__(self, id: str, nombre: str, demanda: float = 0.0):
+    def __init__(self, id: str, nombre: str, precio: float = 0.0, demanda: float = 0.0):
         self.id = id
         self.nombre = nombre
-        self.precio = 0.0
+        self.precio = precio
         self.demanda = demanda
         self.vuelos: List[Vuelo] = []
         self.hoteles: List[Hotel] = []

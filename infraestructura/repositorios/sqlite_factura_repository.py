@@ -27,10 +27,10 @@ class SQLiteFacturaRepository(IFacturaRepository):
             cursor = conn.cursor()
             cursor.execute(
                 """
-                INSERT INTO facturas (numero_factura, fecha, metodo_pago, total, cliente_id)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO facturas (id, numero_factura, fecha, metodo_pago, total, cliente_id, paquete_id)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
                 """,
-                (factura.numero_factura, factura.fecha, factura.metodo_de_pago, factura.total, factura.cliente_id),
+                (factura.id, factura.numero_factura, factura.fecha, factura.metodo_de_pago, factura.total, factura.cliente, factura.paquete),
             )
             conn.commit()
 
@@ -44,6 +44,7 @@ class SQLiteFacturaRepository(IFacturaRepository):
             rows = cursor.fetchall()
             return [
                 Factura(
+                    id=row["id"],
                     numero_factura=row["numero_factura"],
                     fecha=row["fecha"],
                     metodo_de_pago=row["metodo_pago"],
@@ -63,6 +64,7 @@ class SQLiteFacturaRepository(IFacturaRepository):
             rows = cursor.fetchall()
             return [
                 Factura(
+                    id=row["id"],
                     numero_factura=row["numero_factura"],
                     fecha=row["fecha"],
                     metodo_de_pago=row["metodo_pago"],
@@ -71,3 +73,13 @@ class SQLiteFacturaRepository(IFacturaRepository):
                 )
                 for row in rows
             ]
+
+    def eliminar(self, factura_id: str) -> None:
+        """
+        Elimina una factura de la base de datos.
+        """
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM facturas WHERE id = ?", (factura_id,))
+            conn.commit()
+            

@@ -16,3 +16,7 @@ class IPaqueteRepository(ABC):
     @abstractmethod
     def listar_paquetes(self) -> List[PaqueteTuristico]:
         pass
+    
+    @abstractmethod
+    def eliminar(self, id: str) -> None:
+        pass

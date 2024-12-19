@@ -24,11 +24,6 @@ class SQLiteContratoRepository(IContratoRepository):
                 """
                 INSERT INTO contratos (id, fecha_inicio, fecha_expiracion, condiciones, proveedor_id)
                 VALUES (?, ?, ?, ?, ?)
-                ON CONFLICT(id) DO UPDATE SET
-                    fecha_inicio = excluded.fecha_inicio,
-                    fecha_expiracion = excluded.fecha_expiracion,
-                    condiciones = excluded.condiciones,
-                    proveedor_id = excluded.proveedor_id
                 """,
                 (contrato.id, contrato.fecha_inicio, contrato.fecha_expiracion, contrato.condiciones, proveedor_id),
             )
